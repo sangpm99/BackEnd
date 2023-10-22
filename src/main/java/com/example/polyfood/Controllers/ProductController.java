@@ -23,4 +23,9 @@ public class ProductController {
     public Product getProductById(@RequestParam int id) {
         return productServices.getProductById(id);
     }
+
+    @RequestMapping(value = "gettypeofproductbyproductid", method = RequestMethod.GET)
+    public String getTypeOfProductByProductId(@RequestParam int id) {
+        return productServices.getTypeOfProductByProductId(id);
+    }
 }
