@@ -1,7 +1,9 @@
 package com.example.polyfood.Services;
 
 import com.example.polyfood.Models.Product;
+import com.example.polyfood.Models.ProductDetail;
 import com.example.polyfood.Models.ProductType;
+import com.example.polyfood.Repositories.ProductDetailRepository;
 import com.example.polyfood.Repositories.ProductRepository;
 import com.example.polyfood.Repositories.ProductTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +21,8 @@ public class ProductServices {
     private ProductRepository productRepository;
     @Autowired
     private ProductTypeRepository productTypeRepository;
+    @Autowired
+    private ProductDetailRepository productDetailRepository;
 
     public List<Product> getAllProduct() {
         return productRepository.findAll();
@@ -41,4 +46,16 @@ public class ProductServices {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tồn tại id sản phẩm");
     }
+
+    public List<String> getProductDetailByProductId(int id) {
+        List<ProductDetail> productDetails = productDetailRepository.findAll();
+        List<String> details = new ArrayList<>();
+        for(ProductDetail productDetail: productDetails) {
+            if(productDetail.getProductId() == id) {
+                details.add(productDetail.getDetail());
+            }
+        }
+        return details;
+    }
+
 }

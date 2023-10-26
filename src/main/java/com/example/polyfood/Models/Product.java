@@ -26,6 +26,9 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<OrderDetail> orderDetails;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<ProductDetail> productDetails;
 
     @Column(name = "producttypeid")
     private int productTypeId;
@@ -187,5 +190,13 @@ public class Product {
 
     public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public List<ProductDetail> getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(List<ProductDetail> productDetails) {
+        this.productDetails = productDetails;
     }
 }

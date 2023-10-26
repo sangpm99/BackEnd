@@ -19,7 +19,7 @@ public class Orders {
     private List<OrderDetail> orderDetails;
 
     @Column(name = "paymentid")
-    private int paymentid;
+    private int paymentId;
     @ManyToOne
     @JoinColumn(name = "paymentid", insertable = false, updatable = false)
     @JsonBackReference
@@ -57,6 +57,9 @@ public class Orders {
     @JsonBackReference
     private OrderStatus orderstatus;
 
+    @Column(name = "note")
+    private String note;
+
     @Column(name = "createdat")
     private LocalDateTime createdAt;
 
@@ -79,12 +82,12 @@ public class Orders {
         this.orderDetails = orderDetails;
     }
 
-    public int getPaymentid() {
-        return paymentid;
+    public int getPaymentId() {
+        return paymentId;
     }
 
-    public void setPaymentid(int paymentid) {
-        this.paymentid = paymentid;
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
     }
 
     public Payment getPayment() {
@@ -173,6 +176,14 @@ public class Orders {
 
     public void setOrderstatus(OrderStatus orderstatus) {
         this.orderstatus = orderstatus;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public LocalDateTime getCreatedAt() {
