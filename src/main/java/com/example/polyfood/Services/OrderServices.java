@@ -1,10 +1,12 @@
 package com.example.polyfood.Services;
 
+import com.example.polyfood.Config.SendMailConfig;
 import com.example.polyfood.Models.OrderDetail;
 import com.example.polyfood.Models.User;
 import com.example.polyfood.Repositories.OrderDetailRepository;
 import com.example.polyfood.Repositories.OrdersRepository;
 import com.example.polyfood.Repositories.UserRepository;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.polyfood.Models.Orders;
@@ -20,6 +22,8 @@ public class OrderServices {
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SendMailConfig sendEmail;
 
     public int addNewOrder(Orders orders) {
         // 1. Lấy tất cả user
@@ -82,5 +86,9 @@ public class OrderServices {
         orderDetail1.setCreatedAt(LocalDateTime.now());
         orderDetail1.setUpdateAt(LocalDateTime.now());
         orderDetailRepository.save(orderDetail1);
+    }
+
+    public void sendInvoice(String email, String body) throws MessagingException {
+        sendEmail.sendEmail(email, "Xác nhận đơn hàng tại PolyFood", body);
     }
 }

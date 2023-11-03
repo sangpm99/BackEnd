@@ -2,6 +2,7 @@ package com.example.polyfood.Controllers;
 
 import com.example.polyfood.Services.LoginServices;
 import com.example.polyfood.dto.loginRequest;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class LoginController {
     private LoginServices loginServices;
 
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void sendMail(@RequestBody loginRequest login) {
+    public void sendMail(@RequestBody loginRequest login) throws MessagingException {
         String userName = login.getUserName();
         String password = login.getPassword();
         loginServices.sendMailCode(userName, password);

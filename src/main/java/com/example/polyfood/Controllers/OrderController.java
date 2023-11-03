@@ -4,7 +4,9 @@ import com.example.polyfood.Config.GsonConfig;
 import com.example.polyfood.Models.OrderDetail;
 import com.example.polyfood.Models.Orders;
 import com.example.polyfood.Services.OrderServices;
+import com.example.polyfood.dto.InvoiceRequest;
 import com.google.gson.Gson;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -29,4 +31,10 @@ public class OrderController {
         orderServices.addNewOrderDetail(orderDetail1, orderId);
     }
 
+    @RequestMapping(value = "sendinvoice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void sendInvoice(@RequestBody InvoiceRequest invoiceRequest) throws MessagingException {
+        String email = invoiceRequest.getEmail();
+        String body = invoiceRequest.getBody();
+        orderServices.sendInvoice(email, body);
+    }
 }

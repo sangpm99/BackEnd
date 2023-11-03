@@ -4,6 +4,7 @@ import com.example.polyfood.Config.GsonConfig;
 import com.example.polyfood.Models.Account;
 import com.example.polyfood.Services.RegisterServices;
 import com.google.gson.Gson;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class RegisterController {
     private final Gson gson = GsonConfig.getGsonWithLocalDateTimeAdapter();
 
     @RequestMapping(value = "sendmail", method = RequestMethod.GET)
-    public void sendMail(@RequestParam String email) {
+    public void sendMail(@RequestParam String email) throws MessagingException {
         registerServices.sendMailCode(email);
     }
 

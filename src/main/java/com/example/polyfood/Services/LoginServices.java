@@ -4,6 +4,7 @@ import com.example.polyfood.Config.SendMailConfig;
 import com.example.polyfood.Models.Account;
 import com.example.polyfood.Repositories.AccountRepository;
 import com.example.polyfood.Validation.ValidationNumberGenerator;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +35,7 @@ public class LoginServices {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tài khoản hoặc mật khẩu không chính xác");
     }
 
-    public String sendMail(String userName, String passWord) {
+    public String sendMail(String userName, String passWord) throws MessagingException {
         String email = login(userName, passWord);
         ValidationNumberGenerator.generateValidationNumber(email);
         String code = "";
@@ -51,7 +52,7 @@ public class LoginServices {
         return email;
     }
 
-    public void sendMailCode(String userName, String passWord) {
+    public void sendMailCode(String userName, String passWord) throws MessagingException {
         String email = sendMail(userName, passWord);
         if(!email.isEmpty()) {
             ValidationNumberGenerator.expireValidation(email);

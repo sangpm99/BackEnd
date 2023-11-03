@@ -4,6 +4,7 @@ import com.example.polyfood.Config.SendMailConfig;
 import com.example.polyfood.Models.Account;
 import com.example.polyfood.Repositories.AccountRepository;
 import com.example.polyfood.Validation.ValidationNumberGenerator;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,7 +33,7 @@ public class RegisterServices {
         return false;
     }
 
-    public void sendMail(String email) {
+    public void sendMail(String email) throws MessagingException {
         if(isEmailExist(email)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email đã tồn tại");
         }
@@ -50,7 +51,7 @@ public class RegisterServices {
         }
     }
 
-    public void sendMailCode(String email) {
+    public void sendMailCode(String email) throws MessagingException {
         sendMail(email);
         ValidationNumberGenerator.expireValidation(email);
     }

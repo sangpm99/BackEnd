@@ -6,6 +6,7 @@ import com.example.polyfood.Models.Account;
 import com.example.polyfood.Repositories.AccountRepository;
 import com.example.polyfood.Validation.ValidationNumberGenerator;
 import com.google.gson.Gson;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,7 +27,7 @@ public class ForgotPasswordServices {
     private SendMailConfig sendEmail;
     private final Gson gson = GsonConfig.getGsonWithLocalDateTimeAdapter();
 
-    public void sendMail (String email) {
+    public void sendMail (String email) throws MessagingException {
         List<Account> accounts = accountRepository.findAll();
         for(Account acc: accounts) {
             if(acc.getEmail().equals(email)) {
@@ -47,7 +48,7 @@ public class ForgotPasswordServices {
         }
     }
 
-    public void forgotPassword(String email) {
+    public void forgotPassword(String email) throws MessagingException {
         sendMail(email);
         ValidationNumberGenerator.expireValidation(email);
     }
