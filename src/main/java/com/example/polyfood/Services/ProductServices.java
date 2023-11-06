@@ -11,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductServices {
@@ -58,4 +56,14 @@ public class ProductServices {
         return details;
     }
 
+    public List<Product> getProductOrderByView() {
+        List<Product> products = productRepository.findAll();
+        products.sort(new Comparator<Product>() {
+            @Override
+            public int compare(Product product1, Product product2) {
+                return Integer.compare(product2.getNumberOfViews(), product1.getNumberOfViews());
+            }
+        });
+        return products;
+    }
 }

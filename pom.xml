@@ -11,6 +11,11 @@
     <groupId>com.example</groupId>
     <artifactId>polyfood</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
+    <!-- Tích hợp sang war -->
+    <packaging>war</packaging>
+
+
     <name>polyfood</name>
     <description>polyfood</description>
     <properties>
@@ -89,11 +94,35 @@
 
     </dependencies>
 
+    <!-- Profile de build file WAR -->
+    <profiles>
+        <profile>
+            <id>war</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>3.3.2</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Build WAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
             </plugin>
         </plugins>
     </build>

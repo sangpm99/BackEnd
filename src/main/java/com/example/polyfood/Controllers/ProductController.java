@@ -33,4 +33,9 @@ public class ProductController {
     public List<String> getProductDetailByProductId(@RequestParam int id) {
         return productServices.getProductDetailByProductId(id);
     }
+
+    @RequestMapping(value = "getproductorderbyview", method = RequestMethod.GET)
+    public List<Product> getProductOrderByView() {
+        return productServices.getProductOrderByView();
+    }
 }
